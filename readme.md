@@ -20,6 +20,8 @@ This project involved building a Node.js command-line application that takes in 
 
 [Tests](#tests)
 
+[Demonstration] (#demonstration)
+
 [Questions](#questions)
   
 ## Installation:
@@ -51,6 +53,12 @@ Please reach out to me directly before any further contributions
 ## Tests:
   
 Run 'npm test' in your command line.
+
+## Demonstration:
+
+Demonstration walkthrough video link:
+
+https://drive.google.com/file/d/1DXjILUUZfy4DZdtawEpxkZXuFJt2zN79/view
   
 ## Questions:
 
