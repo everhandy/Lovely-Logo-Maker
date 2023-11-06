@@ -1,5 +1,16 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const path = require("path");
+
+const {Circle, Square, Triangle} = require("./lib/shapes");
+
+const svgPath = path.join(__dirname, "examples", "logo.svg");
+
+const shapeClasses = {
+    circle: Circle,
+    square: Square,
+    triangle: Triangle,
+};
 
 inquirer
     .prompt([
@@ -25,6 +36,28 @@ inquirer
         message: 'What color (or hexadecimal number) do you want the logo background to be?'
         },
     ])
-    .then((response) =>{
-        console.log(response);
+    .then((responses) =>{
+        // creates shape from inquirer prompt responses
+        const ShapeClass = shapeClasses[responses.shape];
+        const shape = new ShapeClass();
+
+        // uses setColor which was important for the test scripts provided. I would have chose to omit this since we responses.bgColor in line 49
+        shape.setColor(responses.bgColor);
+
+        const svg = `
+        <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="${responses.bgColor}">
+            ${shape.render()}
+            <text x="150" y="130" text-anchor="middle" font-size="36" fill="${responses.textColor}">${responses.logoChars}</text>
+          </g>
+        </svg>`;
+
+        // Write svg to file path 
+        fs.writeFile(svgPath, svg, (err) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("Generated logo.svg");
+            }
+        });
     })
